@@ -29,9 +29,12 @@ const blogSchema = new mongoose.Schema({
           },
         },
       ],
+     
 },{
     timestamps: true,
   });
+
+
 
 
 //creation of blog model

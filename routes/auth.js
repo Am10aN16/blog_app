@@ -82,8 +82,8 @@ router.post("/signin", async (req, res) => {
   });
 
 
-  //addblogs  to the website
-  router.post("/addblogs" ,Authenticate , async(req,res) => {
+  //addblogs  to the database
+  router.post("/addblogs" , async(req,res) => {
     const {category , title , tag , blog} = req.body
 
     if(!category || !title || !tag || !blog)
@@ -105,5 +105,14 @@ try {
     
   })
 
+  //deleteblogs from the database
+  router.delete("/delblog/:id" , async(req, res)=>{
+    try {
+      await Products.findByIdAndDelete(req.params.id)
+      res.json({msg:"Deleted the blog"})
+  } catch (err) {
+      return res.status(500).json({msg: err.message})
+  }
+  })
 
   module.exports = router;
