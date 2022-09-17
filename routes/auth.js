@@ -108,11 +108,27 @@ try {
   //deleteblogs from the database
   router.delete("/delblog/:id" , async(req, res)=>{
     try {
-      await Products.findByIdAndDelete(req.params.id)
+      await Blog.findByIdAndDelete(req.params.id)
       res.json({msg:"Deleted the blog"})
   } catch (err) {
       return res.status(500).json({msg: err.message})
   }
+  })
+
+  //update the blogs
+  router.put("/updateblog/:id" , async(req , res) => {
+    try {
+      const {category , title , tag , blog} = req.body
+      await Blog.findByIdAndUpdate({_id:req.params.id} , {
+        category , title , tag , blog
+      })
+
+      res.json({msg: "Updated the blog"})
+
+      
+    } catch (error) {
+      return res.status(500).json({msg: err.message}) 
+    }
   })
 
   module.exports = router;
