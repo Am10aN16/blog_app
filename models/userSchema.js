@@ -10,10 +10,12 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: true,
     },
     username: {
       type: String,
+      unique: true,
       required: true,
     },
     images:{
@@ -74,15 +76,7 @@ userSchema.methods.generateAuthToken = async function () {
   }
 };
 
-userSchema.methods.addComment = async function (username, comment) {
-  try {
-    this.comments = this.comments.concat({ username, comment });
-    await this.save();
-    return this.messages;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 //collection creation
 const User = mongoose.model("USER" , userSchema);

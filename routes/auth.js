@@ -45,7 +45,6 @@ router.post("/register" , async(req, res) => {
 })
 
 // login route
-
 router.post("/signin", async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -105,6 +104,18 @@ try {
     
   })
 
+  //get all the blogs 
+  router.get("/blogs" , async(req , res) => {
+    try {
+      const allBlogs =   await Blog.find();
+
+      res.json(allBlogs);
+      
+    } catch (error) {
+      res.status(500).json({msg:error.message})
+    }
+  })
+
   //deleteblogs from the database
   router.delete("/delblog/:id" , async(req, res)=>{
     try {
@@ -115,7 +126,7 @@ try {
   }
   })
 
-  //update the blogs
+  //update the blogs to the database
   router.put("/updateblog/:id" , async(req , res) => {
     try {
       const {category , title , tag , blog} = req.body
@@ -128,6 +139,28 @@ try {
       
     } catch (error) {
       return res.status(500).json({msg: err.message}) 
+    }
+  })
+
+  //post comments to the database
+  router.post("/comments/:id" , async(req, res) => {
+    try {
+      const {username ,  comment} = req.body;
+
+      if(!username || !comment)
+      return res.json({msg:"Some fields are missing"})
+
+      const userExist = await Blog.findOne({_id: req.params.id})
+
+      if(userExist){
+        const usercomment  = await userExist.addComment(username , comment);
+        await userExist.save()
+
+        res.status(201).json({message:"User Commented Successfully"});
+      }
+
+    } catch (error) {
+      res.status(500).json({msg: error.message})
     }
   })
 

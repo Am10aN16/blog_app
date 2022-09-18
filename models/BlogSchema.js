@@ -34,7 +34,15 @@ const blogSchema = new mongoose.Schema({
     timestamps: true,
   });
 
-
+  blogSchema.methods.addComment = async function (username, comment) {
+    try {
+      this.comments = this.comments.concat({ username, comment });
+      await this.save();
+      return this.comments;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 //creation of blog model
