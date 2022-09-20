@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import {Tabs, Tab, Box} from '@mui/material';
 import Blogs from './Blogs';
+ 
 
 
 const NavPage =() => {
@@ -13,16 +12,17 @@ const NavPage =() => {
   };
 
   return (
-    <Box sx={{ width: '95%' }}>
+    <Box sx={{ maxWidth: '85%'}}>
       <Tabs
+      className='navbox'
         value={value}
         onChange={handleChange}
         textColor="secondary"
-        indicatorColor="secondary"
+        
         aria-label="secondary tabs example"
         centered
       >
-        <Tab value="one" label="Item One" ><Blogs/></Tab>
+        <Tab value="one" label="Item One" onClick={() =>{ return <Blogs/>}}></Tab>
         <Tab value="two" label="Item Two" />
         <Tab value="three" label="Item Three" />
       </Tabs>
