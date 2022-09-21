@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.box{
+  border: 2px solid red;
+}
 
 @media screen and (max-width: 500px)  {
     .MuiTabs-flexContainer{
